@@ -25,8 +25,15 @@ public class XPresent<V extends IView> implements IPresent<V> {
 
     protected V getV() {
         if (v == null || v.get() == null) {
-            throw new IllegalStateException("v can not be null");
+            throw new MvpViewNotAttachedException();
         }
         return v.get();
     }
+
+    private static class MvpViewNotAttachedException extends RuntimeException {
+        private MvpViewNotAttachedException() {
+            super("not binding view");
+        }
+    }
+
 }

@@ -2,21 +2,26 @@ package com.sensology.framelib.mvp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.Menu;
 import android.view.View;
 
 import com.sensology.framelib.XConfigure;
 import com.sensology.framelib.event.BusProvider;
 import com.sensology.framelib.kit.KnifeHelper;
+import com.sensology.framelib.mvp.loader.PresenterFactory;
+import com.sensology.framelib.mvp.loader.PresenterLoader;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.Unbinder;
 
 
-public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity implements IView<P> {
-
+public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity implements IView<P>, LoaderManager.LoaderCallbacks<P> {
+    private static final int BASE_LOADER_ID = 1000;//loader的id值
     private VDelegate vDelegate;
     private P p;
     protected Activity context;
@@ -36,8 +41,8 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
             bindEvent();
             bindUI(null);
         }
+        getSupportLoaderManager().initLoader(BASE_LOADER_ID, null, this);
         initData(savedInstanceState);
-
     }
 
     @Override
@@ -114,7 +119,7 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
     }
 
     public RxPermissions getRxPermissions() {
-        if (rxPermissions == null){
+        if (rxPermissions == null) {
             rxPermissions = new RxPermissions(this);
         }
         rxPermissions.setLogging(XConfigure.DEV);
@@ -129,5 +134,26 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
     @Override
     public void bindEvent() {
 
+    }
+
+    @NonNull
+    @Override
+    public Loader<P> onCreateLoader(int id, @Nullable Bundle args) {
+        return new PresenterLoader<>(this, new PresenterFactory<P>() {
+            @Override
+            public P create() {
+                return newP();
+            }
+        });
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<P> loader, P data) {
+        p = data;
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<P> loader) {
+        p = null;
     }
 }

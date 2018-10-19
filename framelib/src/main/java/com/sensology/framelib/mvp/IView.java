@@ -8,13 +8,14 @@ public interface IView<P> {
 
     void bindEvent();
 
+    int getLayoutId();
+
+    P newP();
+
     void initData(Bundle savedInstanceState);
 
     int getOptionsMenuId();
 
-    int getLayoutId();
-
     boolean useEventBus();
 
-    P newP();
 }
