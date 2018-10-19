@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.sensology.baseproject.R;
+import com.sensology.baseproject.eventBus.UserInfoEvent;
+import com.sensology.framelib.event.BusProvider;
 
 import butterknife.BindView;
 
@@ -31,7 +33,8 @@ public class SecondActivity extends BaseActivity {
     public void onClick(View v) {
         super.onClick(v);
         if (v == mExit){
-            exitApp();
+//            exitApp();
+            BusProvider.getBus().post(new UserInfoEvent("我改变了"));
         }
     }
 }

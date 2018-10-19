@@ -6,14 +6,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sensology.baseproject.R;
+import com.sensology.baseproject.eventBus.UserInfoEvent;
 import com.sensology.baseproject.present.MainP;
+import com.sensology.framelib.event.BusProvider;
 import com.sensology.framelib.router.Router;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity<MainP>{
     @BindView(R.id.bt)
     public Button mTv;
+    @BindView(R.id.tvName)
+    public TextView mName;
 
     @Override
     public int getLayoutId() {
@@ -28,6 +33,8 @@ public class MainActivity extends BaseActivity<MainP>{
     @Override
     public void initData(Bundle savedInstanceState) {
         mTv.setOnClickListener(this);
+
+        registerBus();
     }
 
     @Override
@@ -40,8 +47,14 @@ public class MainActivity extends BaseActivity<MainP>{
         }
     }
 
-    @Override
-    public void registerEventBusBase() {
-        super.registerEventBusBase();
+    private void registerBus(){
+        BusProvider.getBus().toFlowable(UserInfoEvent.class)
+                .subscribe(new Consumer<UserInfoEvent>() {
+                    @Override
+                    public void accept(UserInfoEvent userInfoEvent) throws Exception {
+                        mName.setText(userInfoEvent.getName());
+                    }
+                });
     }
+
 }
