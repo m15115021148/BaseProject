@@ -8,9 +8,19 @@ import com.sensology.framelib.event.IBus;
 public class UserInfoEvent implements IBus.IEvent {
 
     private String name;
+    private int type;
 
-    public UserInfoEvent(String name){
+    public UserInfoEvent(String name,int type){
         this.name = name;
+        this.type = type;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getName() {

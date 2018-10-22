@@ -10,9 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class SimpleRecAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class XRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     private List<T> data = new ArrayList<>();
-
 
     public void setData(List<T> data) {
         this.data = data;
@@ -56,7 +55,7 @@ public abstract class SimpleRecAdapter<T> extends RecyclerView.Adapter<BaseViewH
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(getLayoutId(), parent, false);
-        return new BaseViewHolder(view);
+        return onBindViewHolder(view);
     }
 
     @Override
@@ -70,6 +69,8 @@ public abstract class SimpleRecAdapter<T> extends RecyclerView.Adapter<BaseViewH
     }
 
     public abstract int getLayoutId();
+
+    public abstract BaseViewHolder onBindViewHolder(View view);
 
 
     public void removeElement(T element) {
