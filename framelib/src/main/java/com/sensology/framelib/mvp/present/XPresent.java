@@ -1,4 +1,6 @@
-package com.sensology.framelib.mvp;
+package com.sensology.framelib.mvp.present;
+
+import com.sensology.framelib.mvp.view.IView;
 
 import java.lang.ref.WeakReference;
 

@@ -1,57 +1,42 @@
-package com.sensology.framelib.mvp;
+package com.sensology.framelib.mvp.fragment;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.sensology.framelib.XConfigure;
 import com.sensology.framelib.event.BusProvider;
 import com.sensology.framelib.kit.KnifeHelper;
+import com.sensology.framelib.mvp.loader.PresenterFactory;
+import com.sensology.framelib.mvp.loader.PresenterLoader;
+import com.sensology.framelib.mvp.present.IPresent;
+import com.sensology.framelib.mvp.view.IView;
+import com.sensology.framelib.mvp.VDelegate;
+import com.sensology.framelib.mvp.VDelegateBase;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.util.Objects;
 
 import butterknife.Unbinder;
 
-public abstract class XFragment<P extends IPresent> extends RxFragment implements IView<P> {
+public abstract class XFragment<P extends IPresent> extends LazyFragment implements IView<P>, LoaderManager.LoaderCallbacks<P> {
 
     private VDelegate vDelegate;
     private P p;
-    protected Activity context;
-    private View rootView;
-    protected LayoutInflater layoutInflater;
 
     private RxPermissions rxPermissions;
-
     private Unbinder unbinder;
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        layoutInflater = inflater;
-        if (rootView == null && getLayoutId() > 0) {
-            rootView = inflater.inflate(getLayoutId(), null);
-            bindUI(rootView);
-        } else {
-            ViewGroup viewGroup = (ViewGroup) rootView.getParent();
-            if (viewGroup != null) {
-                viewGroup.removeView(rootView);
-            }
+    protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        if (getLayoutId() > 0) {
+            setContentView(getLayoutId());
+            bindUI(getRealRootView());
         }
-
-        return rootView;
-    }
-
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         if (useEventBus()) {
             BusProvider.getBus().register(this);
         }
@@ -64,7 +49,13 @@ public abstract class XFragment<P extends IPresent> extends RxFragment implement
         unbinder = KnifeHelper.bind(this, rootView);
     }
 
-    protected VDelegate getvDelegate() {
+    @Override
+    public void bindEvent() {
+
+    }
+
+
+    public VDelegate getvDelegate() {
         if (vDelegate == null) {
             vDelegate = VDelegateBase.create(context);
         }
@@ -84,28 +75,8 @@ public abstract class XFragment<P extends IPresent> extends RxFragment implement
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof Activity) {
-            this.context = (Activity) context;
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        context = null;
-    }
-
-    @Override
-    public boolean useEventBus() {
-        return false;
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void onDestoryLazy() {
+        super.onDestoryLazy();
         if (useEventBus()) {
             BusProvider.getBus().unregister(this);
         }
@@ -118,21 +89,46 @@ public abstract class XFragment<P extends IPresent> extends RxFragment implement
         vDelegate = null;
     }
 
+
     protected RxPermissions getRxPermissions() {
-        if (rxPermissions == null){
+        if (rxPermissions == null) {
             rxPermissions = new RxPermissions(Objects.requireNonNull(getActivity()));
         }
         rxPermissions.setLogging(XConfigure.DEV);
         return rxPermissions;
     }
 
+
     @Override
     public int getOptionsMenuId() {
         return 0;
     }
 
-    @Override
-    public void bindEvent() {
 
+    @Override
+    public boolean useEventBus() {
+        return false;
+    }
+
+
+    @NonNull
+    @Override
+    public Loader<P> onCreateLoader(int id, @Nullable Bundle args) {
+        return new PresenterLoader<>(context, new PresenterFactory<P>() {
+            @Override
+            public P create() {
+                return newP();
+            }
+        });
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<P> loader, P data) {
+        p = data;
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<P> loader) {
+        p = null;
     }
 }

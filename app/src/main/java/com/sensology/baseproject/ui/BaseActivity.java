@@ -14,7 +14,7 @@ import com.sensology.baseproject.eventBus.ExitAppEvent;
 import com.sensology.baseproject.util.Constants;
 import com.sensology.framelib.cache.SharedPref;
 import com.sensology.framelib.event.BusProvider;
-import com.sensology.framelib.mvp.IPresent;
+import com.sensology.framelib.mvp.present.IPresent;
 import com.sensology.framelib.mvp.XActivity;
 import com.sensology.framelib.util.ActivityUtil;
 

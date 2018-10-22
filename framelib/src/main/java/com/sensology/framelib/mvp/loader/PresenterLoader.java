@@ -3,7 +3,7 @@ package com.sensology.framelib.mvp.loader;
 import android.content.Context;
 import android.support.v4.content.Loader;
 
-import com.sensology.framelib.mvp.IPresent;
+import com.sensology.framelib.mvp.present.IPresent;
 
 public class PresenterLoader<P extends IPresent> extends Loader<P> {
     private PresenterFactory<P> factory;

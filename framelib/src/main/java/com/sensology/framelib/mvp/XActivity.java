@@ -14,6 +14,8 @@ import com.sensology.framelib.event.BusProvider;
 import com.sensology.framelib.kit.KnifeHelper;
 import com.sensology.framelib.mvp.loader.PresenterFactory;
 import com.sensology.framelib.mvp.loader.PresenterLoader;
+import com.sensology.framelib.mvp.present.IPresent;
+import com.sensology.framelib.mvp.view.IView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.sensology.framelib.mvp;
+package com.sensology.framelib.mvp.view;
 
 import android.os.Bundle;
 import android.view.View;

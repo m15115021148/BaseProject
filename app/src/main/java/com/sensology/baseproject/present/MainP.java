@@ -1,7 +1,7 @@
 package com.sensology.baseproject.present;
 
 import com.sensology.baseproject.ui.MainActivity;
-import com.sensology.framelib.mvp.XPresent;
+import com.sensology.framelib.mvp.present.XPresent;
 
 /**
  * Created by ${chenM} on 2018/10/19.

@@ -1,4 +1,4 @@
-package com.sensology.framelib.mvp;
+package com.sensology.framelib.mvp.fragment;
 
 import android.app.Activity;
 import android.content.Context;

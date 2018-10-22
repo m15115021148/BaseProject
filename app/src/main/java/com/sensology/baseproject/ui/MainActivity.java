@@ -12,6 +12,7 @@ import com.sensology.framelib.event.BusProvider;
 import com.sensology.framelib.router.Router;
 
 import butterknife.BindView;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity<MainP>{
@@ -19,6 +20,7 @@ public class MainActivity extends BaseActivity<MainP>{
     public Button mTv;
     @BindView(R.id.tvName)
     public TextView mName;
+    private Disposable disposable;
 
     @Override
     public int getLayoutId() {
@@ -38,6 +40,12 @@ public class MainActivity extends BaseActivity<MainP>{
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unSubscribeRxBus(disposable);
+    }
+
+    @Override
     public void onClick(View v) {
         super.onClick(v);
         if (v == mTv){
@@ -48,7 +56,7 @@ public class MainActivity extends BaseActivity<MainP>{
     }
 
     private void registerBus(){
-        BusProvider.getBus().toFlowable(UserInfoEvent.class)
+        disposable = BusProvider.getBus().toFlowable(UserInfoEvent.class)
                 .subscribe(new Consumer<UserInfoEvent>() {
                     @Override
                     public void accept(UserInfoEvent userInfoEvent) throws Exception {
