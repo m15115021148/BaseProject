@@ -1,4 +1,6 @@
-package com.sensology.framelib.http;
+package com.sensology.framelib.http.interceptor;
+
+import com.sensology.framelib.http.RequestHandler;
 
 import java.io.IOException;
 

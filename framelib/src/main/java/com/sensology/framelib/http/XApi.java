@@ -1,5 +1,7 @@
 package com.sensology.framelib.http;
 
+import com.sensology.framelib.http.interceptor.LogInterceptor;
+import com.sensology.framelib.http.interceptor.XInterceptor;
 import com.sensology.framelib.http.progress.ProgressHelper;
 import com.sensology.framelib.kit.Kits;
 

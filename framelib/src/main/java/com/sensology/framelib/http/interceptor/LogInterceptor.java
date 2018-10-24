@@ -1,4 +1,4 @@
-package com.sensology.framelib.http;
+package com.sensology.framelib.http.interceptor;
 
 import android.util.Log;
 
