@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -837,7 +840,7 @@ public class Kits {
         private static SimpleDateFormat hm = new SimpleDateFormat("HH:mm", Locale.getDefault());
         private static SimpleDateFormat mdhm = new SimpleDateFormat("MM月dd日 HH:mm", Locale.getDefault());
         private static SimpleDateFormat mdhmLink = new SimpleDateFormat("MM-dd HH:mm", Locale.getDefault());
-        private static SimpleDateFormat ymdhmChinese = new SimpleDateFormat("yyyy年MM月dd日 HH:mm",Locale.getDefault());
+        private static SimpleDateFormat ymdhmChinese = new SimpleDateFormat("yyyy年MM月dd日 HH:mm", Locale.getDefault());
 
         /**
          * 年月日[2015-07-28]
@@ -895,7 +898,7 @@ public class Kits {
             return d.format(new java.util.Date(timeInMills));
         }
 
-        public static String getYmdhmChinese(long timeInMills){
+        public static String getYmdhmChinese(long timeInMills) {
             return ymdhmChinese.format(new java.util.Date(timeInMills));
         }
 
@@ -1137,6 +1140,32 @@ public class Kits {
             return set == null || set.isEmpty();
         }
 
+    }
+
+    public static class MD5 {
+
+        public static String getMD5(String str) {
+            MessageDigest messageDigest = null;
+            try {
+                messageDigest = MessageDigest.getInstance("MD5");
+                messageDigest.reset();
+                messageDigest.update(str.getBytes("UTF-8"));
+            } catch (NoSuchAlgorithmException e) {
+                System.out.println("NoSuchAlgorithmException caught!");
+                System.exit(-1);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            byte[] byteArray = messageDigest.digest();
+            StringBuffer md5StrBuff = new StringBuffer();
+            for (int i = 0; i < byteArray.length; i++) {
+                if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
+                    md5StrBuff.append("0").append(Integer.toHexString(0xFF & byteArray[i]));
+                else
+                    md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
+            }
+            return md5StrBuff.toString();
+        }
 
     }
 
