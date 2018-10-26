@@ -9,6 +9,8 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        flavorDimensions "default"
     }
     buildTypes {
         release {
@@ -16,6 +18,43 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+
+        myTest {
+            multiDexEnabled true
+            applicationId 'com.sensology.baseproject'
+            versionNameSuffix ''
+            applicationIdSuffix '.testing'
+            minSdkVersion rootProject.ext.android.minSdkVersion
+            targetSdkVersion rootProject.ext.android.targetSdkVersion
+            versionCode rootProject.ext.android.versionCode
+            versionName rootProject.ext.android.versionName
+            dimension "default"
+            manifestPlaceholders = [
+                    PACKAGE_NAME       : "com.sensology.baseproject.testing",
+                    TYPE               : "testing",
+                    APP_NAME           : "测试",
+            ]
+        }
+
+        product {
+            multiDexEnabled true
+            applicationId 'com.sensology.baseproject'
+            minSdkVersion rootProject.ext.android.minSdkVersion
+            targetSdkVersion rootProject.ext.android.targetSdkVersion
+            versionCode rootProject.ext.android.versionCode
+            versionName rootProject.ext.android.versionName
+            dimension "default"
+            manifestPlaceholders = [
+                    PACKAGE_NAME       : "com.sensology.baseproject",
+                    TYPE               : "product",
+                    APP_NAME           : "正式"
+            ]
+        }
+
+    }
+
 }
 
 dependencies {

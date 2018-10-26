@@ -2,6 +2,7 @@ package com.sensology.baseproject;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.util.DisplayMetrics;
 
 import com.sensology.baseproject.log.LogUtil;
@@ -18,6 +19,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         getScreenSize();
+        initConfig();
     }
 
     public static MyApplication getInstance(){
@@ -30,6 +32,10 @@ public class MyApplication extends Application {
         instance = this;
     }
 
+    private void initConfig(){
+
+    }
+
     /**
      * 获取屏幕尺寸
      */
@@ -40,5 +46,15 @@ public class MyApplication extends Application {
         LogUtil.w("height:"+screenHeight+"\nwidth:"+screenWidth);
     }
 
+    private String environmentConfiguration() {
+        String type = getString(R.string.environment_configuration_testing);
+        try {
+            type = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA)
+                    .metaData.getString("type");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return type;
+    }
 
 }

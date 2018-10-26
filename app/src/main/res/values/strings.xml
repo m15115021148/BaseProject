@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BaseProject</string>
+
+    <string name="environment_configuration_testing">testing</string>
+    <string name="environment_configuration_product">product</string>
+
 </resources>
