@@ -12,11 +12,35 @@ android {
 
         flavorDimensions "default"
     }
+
+    signingConfigs {
+        debug {
+            storeFile file('sit.jks')
+            storePassword "123456"
+            keyAlias "sit"
+            keyPassword "123456"
+        }
+
+        release {
+            storeFile file('sit.jks')
+            storePassword "123456"
+            keyAlias "sit"
+            keyPassword "123456"
+        }
+    }
+
     buildTypes {
+
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
     }
 
     productFlavors {

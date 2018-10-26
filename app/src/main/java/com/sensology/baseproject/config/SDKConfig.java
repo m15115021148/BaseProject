@@ -2,6 +2,7 @@ package com.sensology.baseproject.config;
 
 import android.content.Context;
 
+import com.sensology.baseproject.BuildConfig;
 import com.sensology.baseproject.R;
 import com.sensology.baseproject.http.CustomInterceptor;
 import com.sensology.framelib.http.NetError;
@@ -54,7 +55,7 @@ public class SDKConfig {
 
             @Override
             public boolean configLogEnable() {
-                return true;
+                return BuildConfig.DEBUG;
             }
 
             @Override
