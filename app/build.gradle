@@ -32,9 +32,9 @@ android {
             versionName rootProject.ext.android.versionName
             dimension "default"
             manifestPlaceholders = [
-                    PACKAGE_NAME       : "com.sensology.baseproject.testing",
-                    TYPE               : "testing",
-                    APP_NAME           : "测试",
+                    PACKAGE_NAME: "com.sensology.baseproject.testing",
+                    TYPE        : "testing",
+                    APP_NAME    : "测试",
             ]
         }
 
@@ -47,9 +47,9 @@ android {
             versionName rootProject.ext.android.versionName
             dimension "default"
             manifestPlaceholders = [
-                    PACKAGE_NAME       : "com.sensology.baseproject",
-                    TYPE               : "product",
-                    APP_NAME           : "正式"
+                    PACKAGE_NAME: "com.sensology.baseproject",
+                    TYPE        : "product",
+                    APP_NAME    : "正式"
             ]
         }
 

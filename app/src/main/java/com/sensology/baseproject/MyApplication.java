@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.DisplayMetrics;
 
+import com.sensology.baseproject.config.SDKConfig;
 import com.sensology.baseproject.log.LogUtil;
 
 /**
@@ -33,7 +34,7 @@ public class MyApplication extends Application {
     }
 
     private void initConfig(){
-
+        SDKConfig.initHttp(getApplicationContext(),environmentConfiguration());
     }
 
     /**
