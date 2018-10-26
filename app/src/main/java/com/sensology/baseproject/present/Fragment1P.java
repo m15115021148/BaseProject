@@ -9,6 +9,7 @@ import com.sensology.baseproject.http.SignalUtils;
 import com.sensology.baseproject.util.ToastUtil;
 import com.sensology.framelib.http.NetError;
 import com.sensology.framelib.http.XApi;
+import com.sensology.framelib.http.transformer.DialogTransformer;
 import com.sensology.framelib.kit.Kits;
 import com.sensology.framelib.mvp.present.XPresent;
 
@@ -30,6 +31,7 @@ public class Fragment1P extends XPresent<Fragment1> {
         HttpManager.getApiService().login(params)
                 .compose(XApi.<BaseResult>getApiTransformer())
                 .compose(XApi.<BaseResult>getScheduler())
+                .compose(new DialogTransformer(getV().getContext()).<BaseResult>transformer())
                 .compose(getV().<BaseResult>bindToLifecycle())
                 .subscribe(new CustomApiSubscriber<BaseResult>() {
                     @Override
