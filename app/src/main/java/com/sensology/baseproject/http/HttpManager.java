@@ -17,7 +17,7 @@ public class HttpManager {
 
     public static ApiService getApiService() {
         if (service == null) {
-            synchronized (ApiService.class) {
+            synchronized (HttpManager.class) {
                 if (service == null) {
                     service = XApi.getInstance().getRetrofit(WebConfig.getBaseUrl(), true).create(ApiService.class);
                 }
@@ -34,6 +34,10 @@ public class HttpManager {
      */
     public static RequestBody getParameter(String data) {
         return RequestBody.create(MediaType.parse("application/json"), data);
+    }
+
+    public static RequestBody getParameterText(String data){
+        return RequestBody.create(MediaType.parse("application/plain"), data);
     }
 
     /**

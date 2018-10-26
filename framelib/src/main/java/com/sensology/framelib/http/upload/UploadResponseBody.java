@@ -1,10 +1,11 @@
 package com.sensology.framelib.http.upload;
 
+import android.support.annotation.NonNull;
+
 import java.io.IOException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
