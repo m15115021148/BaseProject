@@ -19,7 +19,7 @@ import io.reactivex.functions.Consumer;
 /**
  * Created by ${chenM} on 2018/10/22.
  */
-public class Fragment1 extends BaseFragment<Fragment1P> {
+public class Fragment1 extends BaseFragment<Fragment1P> implements FragmentAdapter.OnFragmentCallBack {
     private String TAG = Fragment1.class.getSimpleName();
     @BindView(R.id.recyclerView)
     public RecyclerView mRecyclerView;
@@ -47,7 +47,7 @@ public class Fragment1 extends BaseFragment<Fragment1P> {
         LogUtil.d(TAG);
         registerBus();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new FragmentAdapter();
+        mAdapter = new FragmentAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setData(getP().getData());
     }
@@ -67,4 +67,8 @@ public class Fragment1 extends BaseFragment<Fragment1P> {
                 });
     }
 
+    @Override
+    public void onItemClickListener(int position) {
+        getP().login("13564719491","123456");
+    }
 }

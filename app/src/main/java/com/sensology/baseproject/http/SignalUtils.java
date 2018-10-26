@@ -28,7 +28,6 @@ public class SignalUtils {
         map.put("signature", mSignal);
         map.put("timestamp", mTime + "");
         map.put("nonce", sb.toString());
-        Log.i("sss", "mSignal:  " + mSignal + "  timestamp  " + mTime + "  noce  " + sb.toString());
         return map;
     }
 

@@ -33,7 +33,6 @@ public class SecondActivity extends BaseActivity {
     public void onClick(View v) {
         super.onClick(v);
         if (v == mExit){
-//            exitApp();
             BusProvider.getBus().post(new UserInfoEvent("我改变了",0));
         }
     }

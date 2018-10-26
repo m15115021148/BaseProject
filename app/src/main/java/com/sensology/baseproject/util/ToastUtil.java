@@ -9,14 +9,19 @@ import com.sensology.baseproject.MyApplication;
  * Created by ${chenM} on 2018/9/18.
  */
 public class ToastUtil {
+    private static Toast mToast;
 
     /**
      * 长时间显示 位置居中
-     * @param title
-     *            显示的内容
+     *
+     * @param title 显示的内容
      */
     public static void showCenterLong(String title) {
-        Toast mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(),title,Toast.LENGTH_LONG);
+        if (mToast != null) {
+            mToast.cancel();
+            mToast = null;
+        }
+        mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(), title, Toast.LENGTH_LONG);
         mToast.setGravity(Gravity.CENTER, 0, 0);
         mToast.show();
     }
@@ -24,11 +29,14 @@ public class ToastUtil {
     /**
      * 显示时间两秒，位置居中
      *
-     * @param title
-     *            显示的内容
+     * @param title 显示的内容
      */
     public static void showCenterShort(String title) {
-        Toast mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(),title,Toast.LENGTH_SHORT);
+        if (mToast != null) {
+            mToast.cancel();
+            mToast = null;
+        }
+        mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(), title, Toast.LENGTH_SHORT);
         mToast.setGravity(Gravity.CENTER, 0, 0);
         mToast.show();
     }
@@ -40,8 +48,12 @@ public class ToastUtil {
      */
     @SuppressWarnings("deprecation")
     public static void showBottomLong(String title) {
-        Toast mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(),title,Toast.LENGTH_LONG);
-        mToast.setGravity(Gravity.BOTTOM, 0, MyApplication.getInstance().screenHeight/ 10);
+        if (mToast != null) {
+            mToast.cancel();
+            mToast = null;
+        }
+        mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(), title, Toast.LENGTH_LONG);
+        mToast.setGravity(Gravity.BOTTOM, 0, MyApplication.getInstance().screenHeight / 10);
         mToast.show();
     }
 
@@ -52,8 +64,12 @@ public class ToastUtil {
      */
     @SuppressWarnings("deprecation")
     public static void showBottomShort(String title) {
-        Toast mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(),title,Toast.LENGTH_SHORT);
-        mToast.setGravity(Gravity.BOTTOM, 0, MyApplication.getInstance().screenHeight/ 10);
+        if (mToast != null) {
+            mToast.cancel();
+            mToast = null;
+        }
+        mToast = Toast.makeText(MyApplication.getInstance().getApplicationContext(), title, Toast.LENGTH_SHORT);
+        mToast.setGravity(Gravity.BOTTOM, 0, MyApplication.getInstance().screenHeight / 10);
         mToast.show();
     }
 }
