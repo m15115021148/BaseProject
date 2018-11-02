@@ -41,6 +41,18 @@ public class Fragment3 extends BaseFragment {
     }
 
     @Override
+    protected void onStartLazy() {
+        super.onStartLazy();
+        LogUtil.d(TAG + " -->onStartLazy");
+    }
+
+    @Override
+    protected void onStopLazy() {
+        super.onStopLazy();
+        LogUtil.d(TAG + " -->onStopLazy");
+    }
+
+    @Override
     public void onClick(View view) {
         super.onClick(view);
         if (view == mName){

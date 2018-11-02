@@ -44,12 +44,23 @@ public class Fragment1 extends BaseFragment<Fragment1P> implements FragmentAdapt
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        LogUtil.d(TAG);
         registerBus();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new FragmentAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setData(getP().getData());
+    }
+
+    @Override
+    protected void onStartLazy() {
+        super.onStartLazy();
+        LogUtil.d(TAG + " -->onStartLazy");
+    }
+
+    @Override
+    protected void onStopLazy() {
+        super.onStopLazy();
+        LogUtil.d(TAG + " -->onStopLazy");
     }
 
     private void registerBus(){
