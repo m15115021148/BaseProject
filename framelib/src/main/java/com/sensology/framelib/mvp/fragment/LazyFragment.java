@@ -216,7 +216,7 @@ public class LazyFragment extends RxFragment {
         rootView = null;
         container = null;
         layoutInflater = null;
-        if (isInitReady) onDestoryLazy();
+        if (isInitReady) onDestroyLazy();
         isInitReady = false;
     }
 
@@ -244,7 +244,7 @@ public class LazyFragment extends RxFragment {
 
     }
 
-    protected void onDestoryLazy() {
+    protected void onDestroyLazy() {
 
     }
 

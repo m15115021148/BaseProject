@@ -37,8 +37,8 @@ public class Fragment1 extends BaseFragment<Fragment1P> implements FragmentAdapt
     }
 
     @Override
-    protected void onDestoryLazy() {
-        super.onDestoryLazy();
+    protected void onDestroyLazy() {
+        super.onDestroyLazy();
         unSubscribeRxBus(disposable);
     }
 

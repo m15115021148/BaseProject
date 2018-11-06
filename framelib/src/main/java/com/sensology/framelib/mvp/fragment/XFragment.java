@@ -75,8 +75,8 @@ public abstract class XFragment<P extends IPresent> extends LazyFragment impleme
     }
 
     @Override
-    protected void onDestoryLazy() {
-        super.onDestoryLazy();
+    protected void onDestroyLazy() {
+        super.onDestroyLazy();
         if (useEventBus()) {
             BusProvider.getBus().unregister(this);
         }
